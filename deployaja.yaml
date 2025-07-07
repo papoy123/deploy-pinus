@@ -1,0 +1,22 @@
+name: "pinuspintar"
+description: "PinusPintar is an educational platform for Indonesian students, providing interactive learning experiences and resources."
+
+container:
+  image: wendraatmaja/pinuspintar1:latest
+  port: 8070
+
+resources:
+  cpu: "500m"
+  memory: "1Gi"
+  replicas: 2
+
+healthCheck:
+  path: "/"
+  port: 8070
+  initialDelaySeconds: 30
+  periodSeconds: 20
+
+volumes:
+  - name: "app-storage"
+    size: "1Gi"
+    mountPath: "/app/data"
