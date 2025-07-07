@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io/papoy123/deploy-pinus
-  IMAGE_NAME: wendraatmaja/pinuspintar1:latest
+  IMAGE_NAME: wendraatmaja/pinuspintar1
   DOCKER_BUILDKIT: 1
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -36,7 +36,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest
