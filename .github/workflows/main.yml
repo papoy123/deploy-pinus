@@ -50,20 +50,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: DeployAja Plan
         uses: deployaja/deployaja-cli@v0.0.10
         with:
           command: plan
           api-token: ${{ secrets.DEPLOYAJA_TOKEN }}
-          
+
       - name: DeployAja Deploy
         uses: deployaja/deployaja-cli@v0.0.10
         with:
           command: deploy
           api-token: ${{ secrets.DEPLOYAJA_TOKEN }}
           additional-args: --set container.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          
+
       - name: DeployAja Status
         uses: deployaja/deployaja-cli@v0.0.10
         with:
